@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Check</title>
+    <style>
+        body {
+            background-image: url("../static/rohan.png");
+            background-size: contain;
+            background-position: center;
+            color: white;
+            padding: 85px 85px;
+            text-align: center;
+            background-attachment: fixed; 
+            position: relative;
+            z-index: 1;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .navbar {
+            position: absolute;
+            top: 0.5cm;
+            left: 0;
+            width: 96.8%;
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 30px;
+            background-color: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            font-size: 1.2em;
+            z-index: 2;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar a {
+            color: #555;
+            text-decoration: none;
+            margin: 0 20px;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .navbar a:hover {
+            color: #007BFF;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        p {
+            font-size: 1.2em;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            background-color: rgba(144, 238, 144, 0.85); /* Light green with slight transparency */
+            backdrop-filter: blur(10px);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .row {
+            margin-bottom: 15px;
+            width: 100%;
+            max-width: 400px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 1.1em;
+        }
+
+        .row label {
+            flex: 1;
+            text-align: right;
+            margin-right: 15px;
+        }
+
+        .row select,
+        .row input[type="file"] {
+            flex: 2;
+            padding: 8px;
+            font-size: 1em;
+            border-radius: 5px;
+            border: none;
+        }
+
+        .row input[type="file"] {
+            padding-left: 10px;
+        }
+
+        .row button {
+            flex: 2;
+            margin-left: calc(15px + 10px); /* Align the button with the inputs */
+            background-color: #007BFF;
+            color: white;
+            padding: 10px 20px;
+            font-size: 1.2em;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .row button:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
+        }
+
+        #image-preview {
+            margin-top: 20px;
+            max-width: 100%;
+            max-height: 300px;
+            border-radius: 10px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <div class="left-links">
+            <a href="/dashboard">Home</a>
+            <a href="/about">About</a>
+            <a href="/new_plants">Know About Plants</a>
+            <a href="/check">Check</a>
+        </div>
+        <div class="right-links">
+            <a>{{user}}</a>
+            <a href="/login">logout</a>
+        </div>
+    </div>
+
+    <h1>Check Your Plant Leaf Health</h1>
+    <p>Feel free to capture a plant photo and upload it to get an immediate response <br/>
+       about the whole current state of the plant.</p>
+
+    <div class="card">
+        <form action="/check" method="POST" enctype="multipart/form-data">
+            <div class="row">
+                <select id="leaf-name" name="plant" required>
+                    <option value="">--Select Plant--</option>
+                    <option value="tomato">Tomato</option>
+                    <option value="potato">Potato</option>
+                    <option value="chilli">Chilli</option>
+                </select>
+            </div>
+
+            <!-- <div class="row">
+                <select id="model-name" name="model" required>
+                    <option value="">--Select Model--</option>
+                    <option value="vgg">VGG</option>
+                    <option value="efficientnet">EfficientNet</option>
+                    <option value="resnet">ResNet</option>
+                    <option value="mixednet">MixedNet</option>
+                </select>
+            </div> -->
+
+            <div class="row">
+                <input type="file" id="plant-image" name="plant-image" accept="image/*" onchange="showImagePreview(event)" required>
+            </div>
+
+            <img id="image-preview" alt="Image Preview">
+            <br>
+
+            <div class="row">
+                <button type="submit">Submit</button>
+            </div>
+
+            {% if predicted_label %}
+            <div align="center" class="m-5">
+                <p class="funky-text" style="color: green;">{{ predicted_label }}</p>
+                <!-- <img src={{ image }} alt="Image" style="max-width: 50%; height: auto;"> -->
+            </div>
+            {% endif %}
+        </form>
+    </div>
+
+    <script>
+        function showImagePreview(event) {
+            const imagePreview = document.getElementById('image-preview');
+            const file = event.target.files[0];
+
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    imagePreview.src = e.target.result;
+                    imagePreview.style.display = 'block';
+                };
+                reader.readAsDataURL(file);
+            } else {
+                imagePreview.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Team</title>
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <style>
+        body {
+            background-image: url("../static/background.jpg");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            font-family: Arial, sans-serif;
+            color: white;
+        }
+
+        header {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            border: 2px solid #49d555;
+        }
+
+        .exit-button {
+            color: white;
+            font-size: 1rem;
+            background-color: #ff4c4c;
+            border: none;
+            border-radius: 20px;
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .exit-button:hover {
+            background-color: #ff3333;
+        }
+
+        h1 {
+            margin-top: 0;
+            color: #49d555;
+            font-size: 3rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+        }
+
+        .team-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        .team-member {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 20px;
+            margin: 15px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+            width: 250px;
+            text-align: center;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+
+        .team-member img {
+            width: 80%;
+            border-radius: 50%;
+            border: 4px solid #49d555;
+            margin-bottom: 15px;
+            transition: transform 0.3s ease;
+        }
+
+        .team-member:hover img {
+            transform: scale(1.1);
+        }
+
+        .team-member h2 {
+            font-size: 1.5rem;
+            color: #49d555;
+            margin-bottom: 10px;
+        }
+
+        .team-member p {
+            margin: 10px 0;
+            font-size: 1rem;
+            color: black;
+            text-align: left;
+        }
+
+        .team-member i {
+            color: #49d555;
+            margin-right: 8px;
+        }
+
+        .team-member:hover {
+            transform: scale(1.05);
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <!-- <img src="../static/home.jpg" href="/dashboard" alt="Avatar" class="avatar"> -->
+        <a href="/dashboard">
+            <img src="../static/home.jpg" alt="Avatar" class="avatar">
+        </a>
+        <a href="/dashboard" class="exit-button">Exit</a>
+    </header>
+
+    <h1>Meet Our Team</h1>
+    <div class="team-container">
+        <div class="team-member">
+            <img src="../static/manoj1.png" alt="Member 1">
+            <h2>Manoj Solapure</h2>
+            <p><i class="fas fa-university"></i>College: PES University</p>
+            <p><i class="fas fa-calendar-alt"></i>Batch: 2025</p>
+            <p><i class="fas fa-phone"></i>Mobile: +91 9731916445
+            
+        </div>
+        <div class="team-member">
+            <img src="../static/rohan2.png" alt="Member 2">
+            <h2>Rohan K N</h2>
+            <p><i class="fas fa-university"></i>College: PES College</p>
+            <p><i class="fas fa-calendar-alt"></i>Batch: 2025</p>
+            <p><i class="fas fa-phone"></i>Mobile: +91 9019524973 </p>
+            
+        </div>
+        <div class="team-member">
+            <img src="../static/mayur2.png" alt="Member 3">
+            <h2>Mayur Patil</h2>
+            <p><i class="fas fa-university"></i>College: PES Institute</p>
+            <p><i class="fas fa-calendar-alt"></i>Batch: 2025</p>
+            <p><i class="fas fa-phone"></i>Mobile: +91 7204663451</p>
+            
+        </div>
+        <div class="team-member">
+            <img src="../static/mylari2.png" alt="Member 4">
+            <h2>Mailarlingappa</h2>
+            <p><i class="fas fa-university"></i>College: PES University</p>
+            <p><i class="fas fa-calendar-alt"></i>Batch: 2025</p>
+            <p><i class="fas fa-phone"></i>Mobile: +91 9880143972</p>
+            
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-image: url("../static/manoj.png"); /* Update path as needed */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Poppins', sans-serif;
+            color: white;
+        }
+
+        .container {
+            background-color: rgba(107, 208, 107, 0.85); /* Slightly darker green background */
+            padding: 30px;
+            border-radius: 12px;
+            text-align: center;
+            width: 320px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            color: #1e90ff;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            background-color: rgba(255, 255, 255, 0.9);
+            font-size: 14px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #1e90ff;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            margin-top: 15px;
+        }
+
+        button:hover {
+            background-color: #187bcd;
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(30, 144, 255, 0.5);
+        }
+
+        .login-link {
+            margin-top: 15px;
+            font-size: 14px;
+        }
+
+        .login-link a {
+            color: #1e90ff;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+
+        .form-floating {
+            margin-top: 20px;
+            color: red;
+        }
+
+        input::placeholder {
+            color: rgba(0, 0, 0, 0.6);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Sign Up</h1>
+        <form method="POST" action="{{ url_for('signup') }}">
+            <input type="text" id="username" name="username" placeholder="Username" required>
+            <input type="email" id="email" name="email" placeholder="Email" required>
+            <input type="password" id="password" name="password" placeholder="Password" required>
+            <input type="password" id="re_password" name="re_password" placeholder="Confirm Password" required>
+            <br>
+
+            <select id="security_question_1" name="security_question_1" required>
+                <option value="" disabled selected>1. Select a security question</option>
+                <option value="What was your childhood nickname?">What was your childhood nickname?</option>
+                <option value="What is the name of your favorite childhood friend?">What is the name of your favorite childhood friend?</option>
+            </select>
+            <input type="text" id="answer_1" name="answer_1" placeholder="Your answer" required>
+
+            <select id="security_question_2" name="security_question_2" required>
+                <option value="" disabled selected>2. Select a security question 2</option>
+                <option value="What is your favorite book?">What is your favorite book?</option>
+                <option value="What was the name of your first pet?">What was the name of your first pet?</option>
+            </select>
+            <input type="text" id="answer_2" name="answer_2" placeholder="Your answer" required>
+
+            <button type="submit">Sign Up</button>
+        </form>
+        <p class="login-link">Already have an account? <a href="/login">Log in</a></p>
+        <div class="form-floating mb-2" align="center">{{error}}</div>
+    </div>
+</body>
+</html>

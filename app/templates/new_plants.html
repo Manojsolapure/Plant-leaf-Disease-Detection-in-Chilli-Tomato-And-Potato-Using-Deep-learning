@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Plants</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            color: white;
+            margin: 0;
+            padding: 0;
+            background-color: white;
+        }
+        .navbar {
+            position: absolute;
+            top: 0.3cm;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 20px;
+            background: rgba(0, 0, 0, 0.5);
+            font-size: 1.2em;
+            z-index: 2;
+        }
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            margin: 0 30px;
+        }
+        .navbar a:hover {
+            text-decoration: underline;
+        }
+        .hero-section {
+            background-image: url('../static/rohan.png'); /* Adjust this URL to your actual image path */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            color: white;
+            padding: 20px;
+            text-align: left;
+            height: 50vh;
+            position: relative;
+            z-index: 1;
+        }
+        .hero-section h1 {
+            font-size: 2.3em;
+            margin: 0;
+            position: absolute;
+            bottom: 60px;
+            left: 20px;
+        }
+        .hero-section p {
+            font-size: 1.2em;
+            margin: 0;
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+        }
+        .search-container {
+            text-align: center;
+            margin: 20px 0;
+        }
+        .search-container input[type="text"] {
+            padding: 10px;
+            font-size: 1.7em;
+            width: 100%;
+            height: 40px;
+            max-width: 900px;
+            border: 2px solid #e61212;
+            border-radius: 5px;
+        }
+        .container-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.5cm;
+            margin: 0 10px;
+        }
+        .container {
+            background-color: rgba(0, 0, 0, 0.5);
+            background-size: cover;
+            background-position: center;
+            width: 30%;
+            min-width: 200px;
+            height: 250px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            padding: 10px;
+        }
+        .container .disease-name {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 1.2em;
+        }
+        .container .show-more-button {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            padding: 10px 20px;
+            font-size: 1.1em;
+            color: white;
+            background-color: rgba(0, 0, 0, 0.7);
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+        }
+        .container .show-more-button:hover {
+            background-color: rgba(0, 0, 0, 0.9);
+        }
+        .footer-container {
+            background-color: lightgreen;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 20px auto;
+            width: 100%;
+        }
+        .footer-container div {
+            width: 30%;
+            text-align: center;
+        }
+        .footer-container .follow-us img {
+            margin: 5px;
+            width: 30px;
+            height: 30px;
+            background-color: rgba(0, 0, 0, 0.5);
+            border-radius: 5px;
+        }
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.4);
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            background-color: white;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 600px;
+            position: relative;
+        }
+        .modal-header {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+        }
+        .modal-body {
+            margin-bottom: 20px;
+        }
+        .modal-close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 1.5em;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <div class="left-links">
+            <a href="/dashboard">Home</a>
+            <a href="/about">About</a>
+            <a href="/new_plants">Know About Plants</a>
+            <a href="/check">Check</a>
+        </div>
+        <div class="right-links">
+            <span id="username">{{user}}</span> <!-- Replace with dynamic username -->
+            <a href="/login">logout</a>
+<!-- Logout action handled by JavaScript -->
+        </div>
+    </div>
+
+    <div class="hero-section">
+        <h1>Leaf Curl</h1><br/>
+        <br/>
+        <p>Chili leaf curl disease, transmitted by whiteflies (Bemisia tabaci), causes upward curling,<br/>
+             puckering, and distortion of leaves, leading to reduced leaf size and stunted plant growth..</p>
+    </div>
+
+    <div class="search-container">
+        <input type="text" id="search-input" placeholder="Search for a plant disease..." onkeyup="filterContainers()">
+    </div>
+
+    <div class="container-grid">
+        <div class="container" style="background-image: url('../static/1.png');">
+            <div class="disease-name">Early_Blight_in_Tomato</div>
+            <a href="/disease_details1" class="show-more-button">Show More</a>
+
+        </div>
+        <div class="container" style="background-image: url('../static/2.png');">
+            <div class="disease-name">Late_Blight_in_Tomato</div>
+            <a href="/disease_details2" class="show-more-button">Show More</a>
+        </div>
+        <div class="container" style="background-image: url('../static/3.png');">
+            <div class="disease-name">Septoria_Leaf_Spot_in_Tomato</div>
+            <a href="/disease_details3" class="show-more-button">Show More</a>
+        </div>
+        <div class="container" style="background-image: url('../static/4.png');">
+            <div class="disease-name">Bacterial_Spot_in_Tomato</div>
+            <a href="/disease_details4" class="show-more-button">Show More</a>
+        </div>
+        <div class="container" style="background-image: url('../static/5.png');">
+            <div class="disease-name">Tomato_Mosaic_Virus_in_Tomato</div>
+            <a href="/disease_details5" class="show-more-button">Show More</a>
+        </div>
+        <div class="container" style="background-image: url('../static/6.png');">
+            <div class="disease-name">Leaf_Mold_in_Tomato</div>
+            <a href="/disease_details6" class="show-more-button">Show More</a>
+        </div>
+        <div class="container" style="background-image: url('../static/7.png');">
+            <div class="disease-name">Early_Blight_in_Potato</div>
+            <a href="/disease_details7" class="show-more-button">Show More</a>
+        </div>
+        <div class="container" style="background-image: url('../static/8.png');">
+            <div class="disease-name">Late_Blight_in_Potato</div>
+            <a href="/disease_details8" class="show-more-button">Show More</a>
+        </div>
+        <div class="container" style="background-image: url('../static/9.png');">
+            <div class="disease-name">PotatoV_irus_in_Potato</div>
+            <a href="/disease_details9" class="show-more-button">Show More</a>
+        </div>
+        <div class="container" style="background-image: url('../static/11.png');">
+            <div class="disease-name">Nematode_in_Potato</div>
+            <a href="/disease_details10" class="show-more-button">Show More</a>
+        </div>
+        <div class="container" style="background-image: url('../static/12.png');">
+            <div class="disease-name">Phytopthora_in_Potato</div>
+            <a href="/disease_details11" class="show-more-button">Show More</a>
+        </div>
+        <div class="container" style="background-image: url('../static/13.png');">
+            <div class="disease-name">Leaf_Curl_in_Chilli</div>
+            <a href="/disease_details12" class="show-more-button">Show More</a>
+        </div>
+        <div class="container" style="background-image: url('../static/14.png');">
+            <div class="disease-name">Leaf_Spot_in_Chilli</div>
+            <a href="/disease_details13" class="show-more-button">Show More</a>
+        </div>
+        <div class="container" style="background-image: url('../static/15.png');">
+            <div class="disease-name">Whitefly_in_Chilli</div>
+            <a href="/disease_details14" class="show-more-button">Show More</a>
+        </div>
+        <div class="container" style="background-image: url('../static/16.png');">
+            <div class="disease-name">Yellowish_in_Chilli</div>
+            <a href="/disease_details15" class="show-more-button">Show More</a>
+        </div>
+        
+    </div>
+    
+
+    
+    <!-- Modal for more details -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal()">&times;</span>
+            <div class="modal-header" id="modal-title"></div>
+            <div class="modal-body" id="modal-body"></div>
+        </div>
+    </div>
+
+    <script>
+        function filterContainers() {
+            const input = document.getElementById('search-input').value.toLowerCase();
+            const containers = document.querySelectorAll('.container');
+
+            containers.forEach(container => {
+                const name = container.querySelector('.disease-name').textContent.toLowerCase();
+                if (name.includes(input)) {
+                    container.style.display = '';
+                } else {
+                    container.style.display = 'none';
+                }
+            });
+        }
+
+        function showModal(title, details) {
+            document.getElementById('modal-title').innerText = title;
+            document.getElementById('modal-body').innerText = details;
+            document.getElementById('modal').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('modal').style.display = 'none';
+        }
+        
+
+    </script>
+</body>
+</html>

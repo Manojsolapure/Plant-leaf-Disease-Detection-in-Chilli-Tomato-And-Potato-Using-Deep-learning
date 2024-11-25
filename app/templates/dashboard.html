@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Poppins:wght@400;600&display=swap');
+
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            color: #333;
+            background-color: #f9f9f9;
+        }
+
+        .navbar {
+            position: absolute;
+            top: 0.5cm;
+            left: 0;
+            width: 96.8%;
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 30px;
+            background-color: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            font-size: 1.2em;
+            z-index: 2;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar a {
+            color: #555;
+            text-decoration: none;
+            margin: 0 20px;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .navbar a:hover {
+            color: #007BFF;
+        }
+
+        .hero-section {
+            background-image: url("../static/mayur.png");
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 120px 85px;
+            text-align: center;
+            height: 80vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .hero-section h1 {
+            font-size: 3.5em;
+            font-weight: 600;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .hero-section p {
+            font-size: 1.3em;
+            margin-bottom: 20px;
+            text-shadow: 1px 1px 8px rgba(0, 0, 0, 0.5);
+        }
+
+        .btn-go-check {
+            display: inline-block;
+            padding: 12px 30px;
+            font-size: 1.3em;
+            color: #fff;
+            background-color: #007BFF;
+            border-radius: 50px;
+            text-decoration: none;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            cursor: pointer;
+        }
+
+        .btn-go-check:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
+        }
+
+        .below-hero {
+            padding: 60px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #f4f4f4;
+            gap: 30px;
+        }
+
+        .left-side-content {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            max-width: 1200px;
+            margin: 20px auto;
+            gap: 40px;
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .left-side-content img {
+            max-width: 50%;
+            border-radius: 10px;
+        }
+
+        .about-project {
+            max-width: 600px;
+        }
+
+        .about-project h2 {
+            font-size: 2.2em;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .about-project p {
+            font-size: 1.1em;
+            line-height: 1.6;
+            color: #666;
+        }
+
+        .goals {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            max-width: 1200px;
+            margin: 20px auto;
+            width: 100%;
+        }
+
+        .goals-title {
+            font-size: 2.5em;
+            margin-bottom: 30px;
+            color: #007BFF;
+        }
+
+        .goal-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            justify-content: center;
+        }
+
+        .goal {
+            flex: 1;
+            min-width: 250px;
+            background-color: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .goal:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .goal h3 {
+            font-size: 1.6em;
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        .goal p {
+            font-size: 1.1em;
+            color: #555;
+        }
+
+        .footer-container {
+            background-color: #007BFF;
+            color: white;
+            padding: 40px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .footer-container h3 {
+            font-size: 1.6em;
+            margin-bottom: 10px;
+        }
+
+        .footer-container p {
+            font-size: 1em;
+        }
+
+        .footer-container .follow-us img {
+            margin: 5px;
+            width: 30px;
+            height: 30px;
+            transition: transform 0.3s ease;
+        }
+
+        .footer-container .follow-us img:hover {
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <div class="left-links">
+            <a href="/dashboard">Home</a>
+            <a href="/about">About</a>
+            <a href="/new_plants">Know About Plants</a>
+            <a href="/check">Check</a>
+            <!-- <a href="/weather">Weather</a> -->
+        </div>
+        <div class="right-links">
+            <span id="username">{{user}}</span>
+            <a id="logout" href="/logout">Logout</a>
+        </div>
+    </div>
+
+    <div class="hero-section">
+        <h1>Save Your Plants!</h1>
+        <p>Discover issues early by capturing images and get accurate disease management insights.</p>
+        <!-- <button class="btn-go-check" href="/check">Go to Check</button> -->
+        <a class="btn-go-check" href="/check">Go to Check</a>
+
+    </div>
+
+    <div class="below-hero">
+        <div class="left-side-content">
+            <img src="../static/manoj.png" alt="manoj.png">
+            <div class="about-project">
+                <h2>About Our Project</h2>
+                <p>Welcome to our innovative plant disease detection platform, designed to empower farmers with tools to detect and manage plant diseases effectively. Our mission is to combine advanced deep learning technologies with user-friendly interfaces, making it easier for users to diagnose plant health issues swiftly.</p>
+            </div>
+        </div>
+
+        <div class="goals">
+            <h2 class="goals-title">--Goals--</h2>
+            <div class="goal-container">
+                <div class="goal">
+                    <h3>Early Detection and Diagnosis</h3>
+                    <p>Detect diseases in plants early to prevent infection spread and ensure a healthy harvest.</p>
+                </div>
+                <div class="goal">
+                    <h3>Accurate Identification</h3>
+                    <p>Identify specific plant diseases accurately and apply appropriate treatment for better results.</p>
+                </div>
+            </div>
+            <br/>
+            <div class="goal-container">
+                <div class="goal">
+                    <h3>Minimization of Economic Loss</h3>
+                    <p>Early detection helps minimize crop failure and reduces costs associated with disease management.</p>
+                </div>
+                <div class="goal">
+                    <h3>Improved Crop Management</h3>
+                    <p>Analyze disease patterns and improve crop management for healthier plants and higher yields.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+</body>
+</html>
